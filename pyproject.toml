@@ -1,0 +1,252 @@
+[build-system]
+requires = [
+    "hatchling",
+]
+build-backend = "hatchling.build"
+
+[project]
+name = "book-management"
+version = "0.1.0"
+description = "A Book Management Application built with FastAPI."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "UNLICENSED" }
+
+authors = [
+    { name = "Ali Hussain Abid", email = "alihussainabid@hotmail.com" }
+]
+
+dependencies = [
+    "fastapi[all]",
+    "tqdm",
+]
+
+###############################################################################
+# Optional Dependency Groups
+###############################################################################
+
+[project.optional-dependencies]
+
+dev = [
+    "ruff",
+    "basedpyright",
+    "mypy",
+
+    "pytest",
+    "pytest-asyncio",
+    "pytest-cov",
+    "pytest-xdist",
+    "pytest-mock",
+    "httpx",
+
+    "coverage",
+
+    "pre-commit",
+
+    "mkdocs",
+    "mkdocs-material",
+    "mkdocstrings[python]",
+    "mkdocs-gen-files",
+    "mkdocs-literate-nav",
+    "mkdocs-section-index",
+    "mkdocs-mermaid2-plugin",
+
+    "griffe",
+]
+
+###############################################################################
+# Ruff
+###############################################################################
+
+[tool.ruff]
+
+line-length = 100
+target-version = "py312"
+src = ["src"]
+
+[tool.ruff.lint]
+
+select = [
+    "E",
+    "F",
+    "W",
+    "I",
+    "UP",
+    "B",
+    "SIM",
+    "N",
+    "ANN",
+    "ASYNC",
+    "C4",
+    "DTZ",
+    "G",
+    "PIE",
+    "PT",
+    "RET",
+    "RSE",
+    "RUF",
+]
+
+ignore = [
+    "ANN101",
+    "ANN102",
+]
+
+fixable = ["ALL"]
+
+[tool.ruff.format]
+
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = true
+line-ending = "lf"
+
+###############################################################################
+# BasedPyright
+###############################################################################
+
+[tool.basedpyright]
+
+include = [
+    "src",
+]
+
+exclude = [
+    "**/__pycache__",
+    ".venv",
+    ".git",
+    "build",
+    "dist",
+]
+
+typeCheckingMode = "strict"
+
+reportMissingImports = true
+reportMissingTypeStubs = false
+
+pythonVersion = "3.12"
+
+###############################################################################
+# MyPy
+###############################################################################
+
+[tool.mypy]
+
+python_version = "3.12"
+
+strict = true
+
+warn_return_any = true
+warn_unused_configs = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_unreachable = true
+
+check_untyped_defs = true
+
+pretty = true
+
+mypy_path = "src"
+
+###############################################################################
+# Pytest
+###############################################################################
+
+[tool.pytest.ini_options]
+
+testpaths = [
+    "tests",
+]
+
+pythonpath = [
+    "src",
+]
+
+asyncio_mode = "auto"
+
+addopts = [
+    "-ra",
+    "--strict-markers",
+    "--strict-config",
+    "--cov=src",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+]
+
+###############################################################################
+# Coverage
+###############################################################################
+
+[tool.coverage.run]
+
+branch = true
+source = [
+    "src",
+]
+
+[tool.coverage.report]
+
+show_missing = true
+skip_covered = false
+fail_under = 90
+
+###############################################################################
+# Setuptools
+###############################################################################
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/bookly"]
+
+[tool.setuptools]
+
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+
+where = ["src"]
+
+###############################################################################
+# isort (handled by Ruff, but configuration retained)
+###############################################################################
+
+[tool.isort]
+
+profile = "black"
+src_paths = [
+    "src",
+]
+
+###############################################################################
+# Pydocstyle
+###############################################################################
+
+[tool.pydocstyle]
+
+convention = "google"
+
+###############################################################################
+# Bandit
+###############################################################################
+
+[tool.bandit]
+
+exclude_dirs = [
+    "tests",
+]
+
+###############################################################################
+# MkDocs (minimal project metadata)
+###############################################################################
+
+[tool.mkdocs]
+
+site_name = "Book Management"
+docs_dir = "docs"
+
+###############################################################################
+# Wheel
+###############################################################################
+
+[tool.wheel]
+
+universal = false
