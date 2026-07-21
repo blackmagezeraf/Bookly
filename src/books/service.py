@@ -1,5 +1,6 @@
 """Book service layer."""
 
+from datetime import UTC, datetime
 from uuid import UUID
 
 from sqlmodel import desc, select
@@ -31,7 +32,7 @@ class BookService:
         """
         statement = select(Book).where(Book.uid == book_uid)
         result = await session.exec(statement)
-        return result.first() if result.first() is not None else None
+        return result.first()
 
     async def create_book(self, book_data: BookCreateModel, session: AsyncSession) -> Book:
         """Create a new book.
@@ -42,6 +43,7 @@ class BookService:
         """
         book_data_dict = book_data.model_dump()
         new_book = Book(**book_data_dict)
+        new_book.published_date = datetime.now(UTC)
         session.add(new_book)
         await session.commit()
         await session.refresh(new_book)
@@ -60,6 +62,7 @@ class BookService:
         book_to_update = await self.get_book(book_uid, session)
 
         if book_to_update is not None:
+            book_data.updated_at = datetime.now(UTC)
             book_update_dict = book_data.model_dump(exclude_unset=True)
             for key, value in book_update_dict.items():
                 setattr(book_to_update, key, value)

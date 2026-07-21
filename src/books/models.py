@@ -14,16 +14,20 @@ class Book(SQLModel, table=True):
     __tablename__ = "book"  # type: ignore
 
     uid: uuid.UUID = Field(
-        sa_column=Column(pg.UUID, nullable=False, primary_key=True, default=uuid.uuid4())
+        sa_column=Column(pg.UUID, nullable=False, primary_key=True, default=uuid.uuid4)
     )
     title: str
     author: str
     publisher: str
     published_date: date
     page_count: int
-    langauge: LanguageName
-    created_at: datetime = Field(sa_column=Column(pg.TIMESTAMP, default=datetime.now(UTC)))
-    updated_at: datetime = Field(sa_column=Column(pg.TIMESTAMP, default=datetime.now(UTC)))
+    language: LanguageName
+    created_at: datetime = Field(
+        sa_column=Column(pg.TIMESTAMP(timezone=True), nullable=False, default=datetime.now(UTC))
+    )
+    updated_at: datetime = Field(
+        sa_column=Column(pg.TIMESTAMP(timezone=True), nullable=False, default=datetime.now(UTC))
+    )
 
     def __repr__(self) -> str:
         """Return string representation of Book instance."""

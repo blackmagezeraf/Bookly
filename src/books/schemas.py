@@ -41,5 +41,4 @@ class BookUpdateModel(BaseModel):
     published_date: date
     page_count: int
     language: LanguageName
-    created_at: datetime
     updated_at: datetime
