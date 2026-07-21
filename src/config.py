@@ -1,7 +1,11 @@
+"""API Configurations."""
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
+    """Bookly API settings."""
+
     VERSION: str = ""
     DATABASE_URL: str = ""
 

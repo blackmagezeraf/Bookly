@@ -1,15 +1,15 @@
-from sqlalchemy.ext.asyncio import AsyncEngine
-from sqlmodel import create_engine, text
+"""Database Initialization and setup."""
 
+from sqlalchemy.ext.asyncio import AsyncEngine
+from sqlmodel import create_engine
+
+from src.books.models import Book
 from src.config import Config
 
 engine = AsyncEngine(create_engine(url=Config.DATABASE_URL, echo=True))
 
 
-async def init_db():
+async def init_db() -> None:
+    """Initialize Database."""
     async with engine.begin() as db_connection:
-        statement = text("SELECT 'hello';")
-
-        result = await db_connection.execute(statement)
-
-        print(result.all())
+        await db_connection.run_sync(Book.metadata.create_all)
