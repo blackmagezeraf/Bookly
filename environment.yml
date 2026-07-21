@@ -22,6 +22,3 @@ dependencies:
   - wheel=0.47.0=py312haa95532_0
   - xz=5.8.2=h53af0af_0
   - zlib=1.3.2=h1c6eee0_0
-  - pip:
-      - fastapi==0.139.0
-      - tqdm==4.68.4
