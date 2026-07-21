@@ -9,7 +9,7 @@ from sqlmodel import Column, Field, SQLModel
 
 
 class Book(SQLModel, table=True):
-    """Book representation in databas."""
+    """Book representation in database."""
 
     __tablename__ = "book"  # type: ignore
 
