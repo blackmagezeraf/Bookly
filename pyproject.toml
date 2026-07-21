@@ -17,8 +17,16 @@ authors = [
 ]
 
 dependencies = [
-    "fastapi[all]",
-    "tqdm",
+    "fastapi[all]>=0.139.0",
+    "pydantic-settings>=2.14.2",
+    "pydantic-extra-types>=2.11.1",
+    "sqlmodel>=0.0.39",
+    "sqlalchemy>=2.0.51",
+    "asyncpg>=0.31.0",
+    "python-dotenv>=1.2.2",
+    "python-multipart>=0.0.32",
+    "sentry-sdk>=2.65.0",
+    "tqdm>=4.68.4",
 ]
 
 ###############################################################################
@@ -28,112 +36,79 @@ dependencies = [
 [project.optional-dependencies]
 
 dev = [
-    "ruff",
-    "basedpyright",
-    "mypy",
+    # Linting & Formatting
+    "ruff>=0.15.22",
+    "mypy>=2.3.0",
+    "pre-commit>=4.6.0",
 
-    "pytest",
-    "pytest-asyncio",
-    "pytest-cov",
-    "pytest-xdist",
-    "pytest-mock",
-    "httpx",
+    # Testing & Coverage
+    "pytest>=9.1.1",
+    "pytest-asyncio>=1.4.0",
+    "pytest-cov>=7.1.0",
+    "pytest-xdist>=3.8.0",
+    "pytest-mock>=3.15.1",
+    "httpx>=0.28.1",
 
-    "coverage",
-
-    "pre-commit",
-
-    "mkdocs",
-    "mkdocs-material",
-    "mkdocstrings[python]",
-    "mkdocs-gen-files",
-    "mkdocs-literate-nav",
-    "mkdocs-section-index",
-    "mkdocs-mermaid2-plugin",
-
-    "griffe",
+    # Documentation
+    "mkdocs>=1.6.1",
+    "mkdocs-material>=9.7.7",
+    "mkdocstrings[python]>=1.0.6",
+    "mkdocstrings-python>=2.0.5",
+    "mkdocs-gen-files>=0.6.1",
+    "mkdocs-literate-nav>=0.6.3",
+    "mkdocs-section-index>=0.3.12",
+    "mkdocs-mermaid2-plugin>=1.2.3",
+    "griffe>=2.1.0",
 ]
 
 ###############################################################################
-# Ruff
+# Ruff (Linter & Formatter)
 ###############################################################################
 
 [tool.ruff]
-
 line-length = 100
 target-version = "py312"
 src = ["src"]
 
 [tool.ruff.lint]
-
 select = [
-    "E",
-    "F",
-    "W",
-    "I",
-    "UP",
-    "B",
-    "SIM",
-    "N",
-    "ANN",
-    "ASYNC",
-    "C4",
-    "DTZ",
-    "G",
-    "PIE",
-    "PT",
-    "RET",
-    "RSE",
-    "RUF",
+    "E",     # pycodestyle errors
+    "F",     # Pyflakes
+    "W",     # pycodestyle warnings
+    "I",     # isort
+    "UP",    # pyupgrade
+    "B",     # flake8-bugbear
+    "SIM",   # flake8-simplify
+    "N",     # pep8-naming
+    "ANN",   # flake8-annotations
+    "ASYNC", # flake8-async
+    "C4",    # flake8-comprehensions
+    "DTZ",   # flake8-datetimez
+    "G",     # flake8-logging-format
+    "PIE",   # flake8-pie
+    "PT",    # flake8-pytest-style
+    "RET",   # flake8-return
+    "RSE",   # flake8-raise
+    "RUF",   # Ruff-specific rules
+    "S",     # flake8-bandit
+    "D",     # pydocstyle
 ]
 
-ignore = [
-    "ANN101",
-    "ANN102",
-]
-
-fixable = ["ALL"]
+[tool.ruff.lint.pydocstyle]
+convention = "google"
 
 [tool.ruff.format]
-
 quote-style = "double"
 indent-style = "space"
 skip-magic-trailing-comma = true
 line-ending = "lf"
 
 ###############################################################################
-# BasedPyright
-###############################################################################
-
-[tool.basedpyright]
-
-include = [
-    "src",
-]
-
-exclude = [
-    "**/__pycache__",
-    ".venv",
-    ".git",
-    "build",
-    "dist",
-]
-
-typeCheckingMode = "strict"
-
-reportMissingImports = true
-reportMissingTypeStubs = false
-
-pythonVersion = "3.12"
-
-###############################################################################
-# MyPy
+# MyPy (Type Checker)
 ###############################################################################
 
 [tool.mypy]
-
 python_version = "3.12"
-
 strict = true
 
 warn_return_any = true
@@ -145,7 +120,6 @@ warn_unreachable = true
 check_untyped_defs = true
 
 pretty = true
-
 mypy_path = "src"
 
 ###############################################################################
@@ -153,7 +127,6 @@ mypy_path = "src"
 ###############################################################################
 
 [tool.pytest.ini_options]
-
 testpaths = [
     "tests",
 ]
@@ -178,75 +151,27 @@ addopts = [
 ###############################################################################
 
 [tool.coverage.run]
-
 branch = true
 source = [
     "src",
 ]
 
 [tool.coverage.report]
-
 show_missing = true
 skip_covered = false
 fail_under = 90
 
 ###############################################################################
-# Setuptools
+# Hatch / Build Configuration
 ###############################################################################
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/bookly"]
 
-[tool.setuptools]
-
-package-dir = { "" = "src" }
-
-[tool.setuptools.packages.find]
-
-where = ["src"]
-
 ###############################################################################
-# isort (handled by Ruff, but configuration retained)
-###############################################################################
-
-[tool.isort]
-
-profile = "black"
-src_paths = [
-    "src",
-]
-
-###############################################################################
-# Pydocstyle
-###############################################################################
-
-[tool.pydocstyle]
-
-convention = "google"
-
-###############################################################################
-# Bandit
-###############################################################################
-
-[tool.bandit]
-
-exclude_dirs = [
-    "tests",
-]
-
-###############################################################################
-# MkDocs (minimal project metadata)
+# MkDocs
 ###############################################################################
 
 [tool.mkdocs]
-
 site_name = "Book Management"
 docs_dir = "docs"
-
-###############################################################################
-# Wheel
-###############################################################################
-
-[tool.wheel]
-
-universal = false
