@@ -1,4 +1,22 @@
 {
-    "python-envs.defaultEnvManager": "ms-python.python:conda",
-    "python-envs.defaultPackageManager": "ms-python.python:conda"
+    "editor.suggest.showFiles": true,
+    "python-envs.pythonProjects": [
+        {
+            "path": ".",
+            "envManager": "ms-python.python:conda",
+            "packageManager": "ms-python.python:conda"
+        }
+    ],
+    "ruff.lineLength": 80,
+    "ruff.format.backend": "internal",
+    "ruff.format.preview": true,
+    "ruff.codeAction.fixViolation": {
+        "enable": true
+    },
+    "ruff.lint.select": [
+        "E4",
+        "E7",
+        "E9",
+        "F",
+    ]
 }

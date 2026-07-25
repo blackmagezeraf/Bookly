@@ -1,3 +1,7 @@
+.ruff_cache/
+
+*.code-workspace
+
 venv/
 .venv/
 env/
