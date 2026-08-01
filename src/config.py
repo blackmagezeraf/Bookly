@@ -9,9 +9,14 @@ class Settings(BaseSettings):
     VERSION: str = ""
     DATABASE_URL: str = ""
 
-    model_config = SettingsConfigDict(
-        env_file="development.env", extra="ignore"
-    )
+    HOST: str = "127.0.0.1"
+    PORT: int = 8000
+
+    RELOAD: bool = True
+    RELOAD_DIRS: list[str] = [""]
+    RELOAD_INCLUDES: list[str] = [""]
+
+    model_config = SettingsConfigDict(env_file="development.env", extra="ignore")
 
 
 Config = Settings()
