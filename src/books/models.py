@@ -23,10 +23,14 @@ class Book(SQLModel, table=True):
     page_count: int
     language: LanguageName
     created_at: datetime = Field(
-        sa_column=Column(pg.TIMESTAMP(timezone=True), nullable=False, default=datetime.now(UTC))
+        sa_column=Column(
+            pg.TIMESTAMP(timezone=True), nullable=False, default=datetime.now(UTC)
+        )
     )
     updated_at: datetime = Field(
-        sa_column=Column(pg.TIMESTAMP(timezone=True), nullable=False, default=datetime.now(UTC))
+        sa_column=Column(
+            pg.TIMESTAMP(timezone=True), nullable=False, default=datetime.now(UTC)
+        )
     )
 
     def __repr__(self) -> str:

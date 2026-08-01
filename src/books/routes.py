@@ -6,11 +6,9 @@ from fastapi import Depends, HTTPException, status
 from fastapi.routing import APIRouter
 from sqlmodel.ext.asyncio.session import AsyncSession
 
+from src.books.schemas import Book, BookCreateModel, BookUpdateModel
 from src.books.service import BookService
 from src.db.main import get_session
-
-from .models import Book
-from .schemas import BookCreateModel, BookUpdateModel
 
 book_router = APIRouter()
 book_service = BookService()
@@ -40,7 +38,7 @@ async def create_book(
     return await book_service.create_book(book_data, session)
 
 
-@book_router.get("/{book_uid}")
+@book_router.get("/{book_uid}", response_model=Book)
 async def get_book(
     book_uid: UUID,
     session: AsyncSession = Depends(get_session),  # noqa: B008
@@ -54,7 +52,9 @@ async def get_book(
     book = await book_service.get_book(book_uid, session)
     if book is not None:
         return book
-    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Book not found.")
+    raise HTTPException(
+        status_code=status.HTTP_404_NOT_FOUND, detail="Book not found."
+    )
 
 
 @book_router.patch("/{book_uid}")
@@ -70,10 +70,14 @@ async def update_book(
         book_update_data: Fields to update in the book.
         session: Async database session.
     """
-    updated_book = await book_service.update_book(book_uid, book_update_data, session)
+    updated_book = await book_service.update_book(
+        book_uid, book_update_data, session
+    )
     if updated_book is not None:
         return updated_book
-    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Book record not found.")
+    raise HTTPException(
+        status_code=status.HTTP_404_NOT_FOUND, detail="Book record not found."
+    )
 
 
 @book_router.delete("/{book_uid}", status_code=status.HTTP_204_NO_CONTENT)
@@ -89,4 +93,7 @@ async def delete_book(
     """
     book = await book_service.delete_book(book_uid, session)
     if book is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Book record not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Book record not found",
+        )

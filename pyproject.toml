@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "book-management"
-version = "0.1.0"
+version = "0.1.1"
 description = "A Book Management Application built with FastAPI."
 readme = "README.md"
 requires-python = ">=3.12"
@@ -26,7 +26,10 @@ dependencies = [
     "python-dotenv>=1.2.2",
     "python-multipart>=0.0.32",
     "sentry-sdk>=2.65.0",
-    "tqdm>=4.68.4",
+    "alembic>=1.18.5",
+    "passlib>=1.7.4",
+    "pycountry>=26.2.16",
+    "pydantic-settings>=2.14.2",
 ]
 
 ###############################################################################
@@ -93,6 +96,7 @@ select = [
     "S",     # flake8-bandit
     "D",     # pydocstyle
 ]
+unfixable = ["F401"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
