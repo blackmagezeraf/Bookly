@@ -42,8 +42,7 @@ class BookService:
             book_uid (UUID): The ID of the book to retrieve.
             session (AsyncSession): The database session.
         """
-        result = await self._get_book_model(book_uid, session)
-        return result.first()
+        return await self._get_book_model(book_uid, session)
 
     async def create_book(
         self, book_data: BookCreateModel, session: AsyncSession

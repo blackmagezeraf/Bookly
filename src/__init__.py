@@ -6,6 +6,7 @@ from typing import Any
 
 from fastapi import FastAPI
 
+from src.auth.routes import auth_router
 from src.books.routes import book_router
 from src.config import Config
 from src.db.main import init_db
@@ -28,3 +29,4 @@ app = FastAPI(
 )
 
 app.include_router(book_router, prefix=f"/api/{Config.VERSION}/books", tags=["books"])
+app.include_router(auth_router, prefix=f"/api/{Config.VERSION}/auth", tags=["auth"])

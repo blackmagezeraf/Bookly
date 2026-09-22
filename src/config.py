@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     DATABASE_USERNAME: str = ""
     DATABASE_PASSWORD: str = ""
     DATABASE_HOST: str = ""
-    DATABASE_PORT: int = ""
+    DATABASE_PORT: int = 8000
     DATABASE_NAME: str = ""
 
     HOST: str = "127.0.0.1"
