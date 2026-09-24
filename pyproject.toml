@@ -1,35 +1,38 @@
-[build-system]
-requires = [
-    "hatchling",
+[tool.uv.workspace]
+members = [
+    "Bookly",
 ]
+
+[project.scripts]
+bookly = "src:main"
+
+[build-system]
+requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "book-management"
+name = "Bookly"
 version = "0.1.1"
 description = "A Book Management Application built with FastAPI."
 readme = "README.md"
-requires-python = ">=3.12"
-license = { text = "UNLICENSED" }
-
 authors = [
     { name = "Ali Hussain Abid", email = "alihussainabid@hotmail.com" }
 ]
+requires-python = ">=3.12"
 
 dependencies = [
-    "fastapi[all]>=0.139.0",
-    "pydantic-settings>=2.14.2",
-    "pydantic-extra-types>=2.11.1",
-    "sqlmodel>=0.0.39",
-    "sqlalchemy>=2.0.51",
-    "asyncpg>=0.31.0",
-    "python-dotenv>=1.2.2",
-    "python-multipart>=0.0.32",
-    "sentry-sdk>=2.65.0",
-    "alembic>=1.18.5",
-    "passlib>=1.7.4",
-    "pycountry>=26.2.16",
-    "pydantic-settings>=2.14.2",
+    "fastapi[all]",
+    "pydantic-settings",
+    "pydantic-extra-types",
+    "sqlmodel",
+    "sqlalchemy",
+    "asyncpg",
+    "python-dotenv",
+    "python-multipart",
+    "sentry-sdk",
+    "alembic",
+    "passlib",
+    "pycountry",
 ]
 
 ###############################################################################
@@ -40,28 +43,28 @@ dependencies = [
 
 dev = [
     # Linting & Formatting
-    "ruff>=0.15.22",
-    "mypy>=2.3.0",
-    "pre-commit>=4.6.0",
+    "ruff",
+    "mypy",
+    "pre-commit",
 
     # Testing & Coverage
-    "pytest>=9.1.1",
-    "pytest-asyncio>=1.4.0",
-    "pytest-cov>=7.1.0",
-    "pytest-xdist>=3.8.0",
-    "pytest-mock>=3.15.1",
-    "httpx>=0.28.1",
+    "pytest",
+    "pytest-asyncio",
+    "pytest-cov",
+    "pytest-xdist",
+    "pytest-mock",
+    "httpx",
 
     # Documentation
-    "mkdocs>=1.6.1",
-    "mkdocs-material>=9.7.7",
-    "mkdocstrings[python]>=1.0.6",
-    "mkdocstrings-python>=2.0.5",
-    "mkdocs-gen-files>=0.6.1",
-    "mkdocs-literate-nav>=0.6.3",
-    "mkdocs-section-index>=0.3.12",
-    "mkdocs-mermaid2-plugin>=1.2.3",
-    "griffe>=2.1.0",
+    "mkdocs",
+    "mkdocs-material",
+    "mkdocstrings[python]",
+    "mkdocstrings-python",
+    "mkdocs-gen-files",
+    "mkdocs-literate-nav",
+    "mkdocs-section-index",
+    "mkdocs-mermaid2-plugin",
+    "griffe",
 ]
 
 ###############################################################################
@@ -179,3 +182,4 @@ packages = ["src/bookly"]
 [tool.mkdocs]
 site_name = "Book Management"
 docs_dir = "docs"
+
